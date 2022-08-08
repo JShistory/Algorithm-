@@ -1,15 +1,15 @@
-import operator
-def solution(N, stages):
+def solution(N,stages):
     answer = []
-    clear_size= len(stages)
-    dict = {}
-    
-    for stage in range(1,N+1):
-        if clear_size !=0:
-            
-            dict[stage] = stages.count(stage)/clear_size
-            clear_size-=stages.count(stage)
+    dict ={}
+    people = len(stages)
+    for i in range(1,N+1):
+        if people != 0:
+            dict[i] = stages.count(i)/people
+            people -=stages.count(i)
         else:
-            dict[stage] = 0
-    print(dict)
-    return sorted(dict,key=lambda x: dict[x], reverse=True)
+            dict[i] = 0
+    stages_list = sorted(dict.items(), key = lambda x : x[1], reverse= True)
+
+    for i in stages_list:
+        answer.append(i[0])
+    return answer
