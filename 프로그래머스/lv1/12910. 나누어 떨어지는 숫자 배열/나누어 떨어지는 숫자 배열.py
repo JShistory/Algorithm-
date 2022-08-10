@@ -4,9 +4,7 @@ def solution(arr, divisor):
     for i in arr:
         if i % divisor == 0:
             answer.append(i)
-    if answer:
-        return answer
-    else:
+    if not answer:
         answer.append(-1)
     return answer
     
