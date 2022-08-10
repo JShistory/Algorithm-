@@ -1,5 +1,4 @@
 def solution(dartResult):
-    answer = 0
     dart = []
     a = 0
     count = 0
@@ -33,7 +32,5 @@ def solution(dartResult):
         elif i == '#':
             dart[-1] = dart[-1] * -1
             count =0
-        
-            
-    print(dart)
+
     return sum(dart)
