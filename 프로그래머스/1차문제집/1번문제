@@ -1,0 +1,15 @@
+def solution(X, Y):
+    answer = []
+    data = list(set(X))
+    for i in data:
+        xm = X.count(i)
+        ym = Y.count(i)
+        for j in range(min(xm,ym)):
+            answer.append(i)
+
+    if not answer:
+        return '-1'
+    if max(answer) == '0':
+        return '0'
+    answer.sort(reverse = True)
+    return "".join(answer)
