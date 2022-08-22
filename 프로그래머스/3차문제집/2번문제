@@ -1,0 +1,23 @@
+def solution(want, number, discount):
+    answer = 0
+    count = 0
+    sale_date = 10
+    discount_num = len(discount)
+    want_dict = {}
+    # 상품 초기화
+    for sale in range(len(want)):
+        want_dict[want[sale]] = number[sale]
+
+    # 상품 확인
+    for date in range(len(discount)):
+        # date부터 date+10일까지 물품을 나눈다
+        sale = discount[date:sale_date + date]
+
+        count = 0
+        for i in want_dict.keys():
+            if sale.count(i) >= want_dict[i]:
+                count += 1
+        if count == len(want_dict):
+            answer += 1
+
+    return answer
