@@ -1,15 +1,11 @@
-def solution(X, Y):
-    answer = []
-    data = list(set(X))
-    for i in data:
-        xm = X.count(i)
-        ym = Y.count(i)
-        for j in range(min(xm,ym)):
-            answer.append(i)
+def solution(a, b, n):
+    answer = 0
+    while True:
+        if n<a:
+            break
+        coke = n//a
+        answer+=(coke*b)
+        n = n % a + coke*b
 
-    if not answer:
-        return '-1'
-    if max(answer) == '0':
-        return '0'
-    answer.sort(reverse = True)
-    return "".join(answer)
+
+    return answer
