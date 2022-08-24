@@ -2,13 +2,12 @@ def solution(s):
     answer = True
     stack = []
     for i in s:
-        if '(' in stack and i == ')':
+        if stack and i == ')' and stack[-1] == '(':
             stack.pop()
         else:
             stack.append(i)
+    print(stack)
     if stack:
-        answer = False
+        return False
     else:
-        answer = True
-    return answer
-    
+        return True
