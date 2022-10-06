@@ -4,16 +4,15 @@ def solution(stones, k):
     while left <= right:
         mid = (left + right) // 2
         cnt = 0
-        for t in stones:
-            if t - mid <= 0:
-                cnt += 1
+        for stone in stones:
+            if stone - mid <= 0:
+                cnt +=1
             else:
                 cnt = 0
             if cnt >= k:
                 break
-        print(left,right)
         if cnt >= k:
-            right = mid - 1
+            right = mid-1
         else:
-            left = mid + 1
+            left = mid+1
     return left
