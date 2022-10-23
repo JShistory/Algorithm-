@@ -7,13 +7,11 @@ public class Solution {
         while(ans != 0){
             if(ans % 2 == 0){
                 ans /=2;
+                continue;
             }
-            else{
-                ans -=1;
-                battery += 1;
-            }
+            ans -=1;
+            battery += 1;
         }
-
         return battery;
     }
 }
