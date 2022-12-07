@@ -1,93 +1,83 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedList;
 import java.util.Queue;
 import java.util.StringTokenizer;
-
-class Point {
-    int x;
-    int y;
-    int z;
-
-    Point(int x, int y, int z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+class Point{
+    int h;
+    int n;
+    int m;
+    Point(int h, int n, int m){
+        this.h = h;
+        this.n = n;
+        this.m = m;
     }
 }
-
 public class Main {
     static StringTokenizer st;
     static int[][][] tomatoBox;
-    static int[] dx = {-1, 1, 0, 0, 0, 0};
-    static int[] dy = {0, 0, -1, 1, 0, 0};
-    static int[] dz = {0, 0, 0, 0, -1, 1};
-    static Queue<Point> queue;
-    static int M;
-    static int N;
+    static Queue<Point> queue = new LinkedList<>();
     static int H;
+    static int N;
+    static int M;
+    static int[] dm = {-1,1,0,0,0,0};
+    static int[] dn = {0,0,-1,1,0,0};
+    static int[] dh = {0,0,0,0,-1,1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         st = new StringTokenizer(br.readLine());
-        //가로,세로,높이
         M = Integer.parseInt(st.nextToken());
         N = Integer.parseInt(st.nextToken());
         H = Integer.parseInt(st.nextToken());
 
         tomatoBox = new int[H][N][M];
-        queue = new LinkedList<>();
-        for (int i = 0; i < H; i++) {
-            for (int j = 0; j < N; j++) {
+
+        for(int h=0; h<H; h++){
+            for(int n=0; n<N; n++){
                 st = new StringTokenizer(br.readLine());
-                for (int k = 0; k < M; k++) {
-                    tomatoBox[i][j][k] = Integer.parseInt(st.nextToken());
-                    if (tomatoBox[i][j][k] == 1) {
-                        queue.add(new Point(k, j, i));
+                for(int m=0; m<M; m++){
+                    tomatoBox[h][n][m] = Integer.parseInt(st.nextToken());
+                    if(tomatoBox[h][n][m] == 1){
+                        queue.add(new Point(h,n,m));
                     }
                 }
             }
         }
-
         System.out.println(BFS());
-
     }
 
-    public static int BFS() {
-
-        while (!queue.isEmpty()) {
+    public static int BFS(){
+        while(!queue.isEmpty()){
             Point data = queue.poll();
-            int x = data.x;
-            int y = data.y;
-            int z = data.z;
-            for (int i = 0; i < 6; i++) {
-                int nx = x + dx[i];
-                int ny = y + dy[i];
-                int nz = z + dz[i];
-                if (nx >= 0 && ny >= 0 && nz >= 0 && nx < M && ny < N && nz < H) {
-                    if (tomatoBox[nz][ny][nx] == 0) {
-                        queue.add(new Point(nx, ny, nz));
-                        tomatoBox[nz][ny][nx] = tomatoBox[z][y][x] + 1;
+            int h = data.h;
+            int n = data.n;
+            int m = data.m;
+            for(int i=0; i<6; i++){
+                int nh = h + dh[i];
+                int nn = n + dn[i];
+                int nm = m + dm[i];
+                if(nm>=0 && nn>=0 && nh>=0 && nm<M && nn<N && nh<H){
+                    if(tomatoBox[nh][nn][nm] == 0){
+                        queue.add(new Point(nh,nn,nm));
+                        tomatoBox[nh][nn][nm] = tomatoBox[h][n][m] + 1;
                     }
                 }
-
             }
         }
         int date = Integer.MIN_VALUE;
-
-        for (int i = 0; i < H; i++) {
-            for (int j = 0; j < N; j++) {
-                for (int k = 0; k < M; k++) {
-                    if (tomatoBox[i][j][k] == 0) {
+        for(int h=0; h<H; h++){
+            for(int n=0; n<N; n++){
+                for(int m=0; m<M; m++){
+                    if(tomatoBox[h][n][m] == 0){
                         return -1;
                     }
-                    date = Math.max(date, tomatoBox[i][j][k]);
+                    date = Math.max(date, tomatoBox[h][n][m]);
                 }
             }
         }
-        if (date == 1) {
+        if(date == 0){
             return 0;
         }
         return date-1;
