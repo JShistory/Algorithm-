@@ -5,12 +5,23 @@ import java.util.Stack;
 
 class Solution {
     public int[] solution(int k, int[] score) {
-        List<Integer> answer = new ArrayList<>();
+                List<Integer> answer = new ArrayList<>();
         Stack<Integer> data = new Stack<>();
         for(int i=0; i<score.length; i++){
             data.add(score[i]);
+            Integer min = data
+                    .stream()
+                    .mapToInt(v -> v)
+                    .min()
+                    .orElseThrow(NoSuchElementException::new);
+
             if(data.size() <= k){
-                Integer min = data
+                answer.add(min);
+            }
+
+            else{
+                data.remove(data.indexOf(min));
+                min = data
                         .stream()
                         .mapToInt(v -> v)
                         .min()
@@ -18,24 +29,10 @@ class Solution {
                 answer.add(min);
             }
 
-            else{
-                Integer min = data
-                        .stream()
-                        .mapToInt(v -> v)
-                        .min()
-                        .orElseThrow(NoSuchElementException::new);
-                data.remove(data.indexOf(min));
-                Integer min1 = data
-                        .stream()
-                        .mapToInt(v -> v)
-                        .min()
-                        .orElseThrow(NoSuchElementException::new);
-                answer.add(min1);
-            }
-
         }
         return answer.stream()
                 .mapToInt(i -> i)
                 .toArray();
+
     }
 }
