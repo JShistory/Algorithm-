@@ -12,15 +12,14 @@ def solution(begin, target, words):
         begin,cnt = queue.popleft()
         if begin == target:
             return cnt
+        
         for i in words:
             count = 0
             for j in range(len(begin)):
                 if i[j] != begin[j]:
-                    count+=1
+                    count +=1
             if count == 1:
                 queue.append([i,cnt+1])
-                    
-                
                 
     
     return 0
