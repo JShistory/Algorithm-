@@ -1,51 +1,44 @@
 import java.util.*;
 class Solution {
     public String solution(String m, String[] musicinfos) {
-        String answer = "";
+        String answer = "(None)";
         m = replaceMelody(m);
-        int time = 0;
-        
+        int maxiumTime = 0;
         for(int i=0; i<musicinfos.length; i++){
             String[] info = musicinfos[i].split(",");
-            
-            String[] timeInfo1 = info[0].split(":");
-            String[] timeInfo2 = info[1].split(":");
+            int playTime = convertTime(info[0],info[1]);
             String melodyInfo = replaceMelody(info[3]);
-            int playTime = convertTime(timeInfo2[0],timeInfo2[1]) - convertTime(timeInfo1[0],timeInfo1[1]);
-            System.out.println(playTime);
             
             if(playTime > melodyInfo.length()){
-                while(melodyInfo.length() < playTime){
+                while(playTime > melodyInfo.length()){
                     melodyInfo += melodyInfo;
                 }
             }
-            melodyInfo = melodyInfo.substring(0,playTime);
             
+            melodyInfo = melodyInfo.substring(0,playTime);
             if(melodyInfo.contains(m)){
-                if(time < playTime){
-                    time = playTime;
+                if(maxiumTime < playTime){
                     answer = info[2];
+                    maxiumTime = playTime;
                 }
             }
             
         }
-        if(answer ==""){
-            return "(None)";
-        }
         return answer;
+        
     }
-    int convertTime(String time1,String time2){
-        int t1 = Integer.valueOf(time1) * 60;
-        int t2 = Integer.valueOf(time2);
-        return t1+ t2;
+    
+    int convertTime(String time1, String time2){
+        String[] timeInfo1 = time1.split(":");
+        String[] timeInfo2 = time2.split(":");
+        return (Integer.valueOf(timeInfo2[0]) * 60 + Integer.valueOf(timeInfo2[1])) - (Integer.valueOf(timeInfo1[0]) * 60 + Integer.valueOf(timeInfo1[1]));
     }
     String replaceMelody(String melody){
-        melody = melody.replaceAll("C#","H");
-        melody = melody.replaceAll("D#","I");
-        melody = melody.replaceAll("F#","J");
-        melody = melody.replaceAll("G#","K");
-        melody = melody.replaceAll("A#","L");
-        
+        melody = melody.replaceAll("C#","c");
+        melody = melody.replaceAll("D#","d");
+        melody = melody.replaceAll("F#","f");
+        melody = melody.replaceAll("G#","g");
+        melody = melody.replaceAll("A#","a");
         return melody;
     }
 }
