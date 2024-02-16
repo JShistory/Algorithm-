@@ -2,7 +2,6 @@ import java.util.*;
 import java.io.*;
 public class Main {
 	static int count;
-	static boolean game;
 	static int answer = Integer.MAX_VALUE;
 	public static void main(String[] args) throws IOException{
 		// TODO Auto-generated method stub
@@ -33,24 +32,19 @@ public class Main {
 	static void check(int n, int m, String[][] chess,String color) {
 		int xSize = n + 7;
 		int ySize = m + 7;
-		
-		game = true;
 		count = 0;
+		
 		if(xSize >= chess.length || ySize >= chess[0].length) {
-			game = false;
 			return ;
 		}
 
 		String memory = color;
 
 		for(int i=n; i<n+8; i++) {
-
 			for(int j=m; j<m+8; j++) {
-
 				if(!chess[i][j].equals(memory)) {
 					count++;
 				}
-				
 				if(memory.equals("B")) {
 					memory = "W";
 				}
