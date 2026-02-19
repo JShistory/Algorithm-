@@ -12,7 +12,7 @@ class Solution {
                         secret[3] = d;
                         for(int e=d+1; e<=n; e++) {
                             secret[4] = e;
-                            if(isSecret(q,secret,ans)) answer++;
+                            if(isValid(q,secret,ans)) answer++;
                         }
                     }
                 }
@@ -20,8 +20,7 @@ class Solution {
         }
         return answer;
     }
-    boolean isSecret(int[][] q, int[] secret, int[] ans) {
-        int[] ansCount = new int[ans.length];
+    boolean isValid(int[][] q, int[] secret, int[] ans) {
         for(int i=0; i<q.length; i++) {
             int correctCount = 0;
             for(int j=0; j<5; j++) {
@@ -29,12 +28,9 @@ class Solution {
                     if(q[i][j] == secret[k]) correctCount ++;
                 }                
             }
-            ansCount[i] = correctCount;
+            if(ans[i] != correctCount) return false;
         }
         
-        for(int i=0; i<q.length; i++) {
-            if(ans[i] != ansCount[i]) return false;
-        }
         return true;
     }
     
